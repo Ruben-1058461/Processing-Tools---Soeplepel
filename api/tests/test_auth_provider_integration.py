@@ -33,3 +33,12 @@ def test_get_user_limited_acces():
     # Test toegang tot items alleen get zou toegankelijk moeten zijn
     assert has_access(user, "items", "get") == True
     assert has_access(user, "items", "post") == False
+
+def test_no_acces_for_invalid_method():
+    """Test dat een ongeldige methode geen toegang geeft"""
+    user = get_user("f6g7h8i9j0")
+    assert user is not None
+
+    # Ongeldige methode zou een KeyError moeten veroorzaken
+    with pytest.raises(KeyError):
+        has_access(user, "warehouses", "invalid_method")
