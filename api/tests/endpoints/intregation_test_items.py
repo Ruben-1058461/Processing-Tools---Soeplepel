@@ -55,10 +55,46 @@ class TestItemGroupAPI(unittest.TestCase):
         # Send the PUT request to retrieve the item item by ID
         response = requests.post(f'{self.base_url}/{item_item_id}', headers=self.headers, json=data)
 
-        # Assert the response status code (200 or 201 depending on your API)
+        # Assert the response status code
         self.assertEqual(response.status_code, 200)
         if response.status_code == 200:
+            print(f"The requested ID has been succesfully posted.")
+
+    def test_put_item_item(self):
+        # Define the PUT request data
+        data =     {
+        "uid": "P011721",
+        "code": "Testing",
+        "description": "Testing",
+        "short_description": "pass",
+        "upc_code": "2541112620796",
+        "model_number": "ZK-417773-PXy",
+        "commodity_code": "z-761-L5A",
+        "item_line": 100,
+        "item_group": 100,
+        "item_type": 100,
+        "unit_purchase_quantity": 100,
+        "unit_order_quantity": 100,
+        "pack_order_quantity": 100,
+        "supplier_id": 100,
+        "supplier_code": "TEST468",
+        "supplier_part_number": "TESTING-ZH-103509-MLv",
+        "created_at": "1997-05-13 02:30:31",
+        "updated_at": "2003-10-18 00:21:57"
+    }
+
+        # Define the item item ID to update
+        item_item_id = 'P011721'  # input("Choose an ID ")
+
+        # Send the PUT request to retrieve the item item by ID
+        response = requests.put(f'{self.base_url}/{item_item_id}', headers=self.headers, json=data)
+
+        # Assert the response status code
+        self.assertEqual(response.status_code, 200)
+        if response.status_code == 201:
             print(f"The requested ID has been succesfully updated. {data}")
+
+
 
 
         
