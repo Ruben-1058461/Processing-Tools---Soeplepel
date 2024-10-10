@@ -42,7 +42,7 @@ class TestItemTypesAPI(unittest.TestCase):
         # Send the PUT request to retrieve the item type by ID
         response = requests.put(f'{self.base_url}/{item_type_id}', headers=self.headers, json=data)
 
-        # Assert the response status code (200 or 201 depending on your API)
+        # Assert the response status code
         self.assertEqual(response.status_code, 200)
         if response.status_code == 200:
             print(f"The requested ID has been succesfully updated. {data}")
@@ -55,7 +55,7 @@ class TestItemTypesAPI(unittest.TestCase):
         # Send the PUT request to retrieve the item type by ID
         response = requests.delete(f'{self.base_url}/{item_type_id}', headers=self.headers)
 
-        # Assert the response status code (200 or 201 depending on your API)
+        # Assert the response status code
         self.assertEqual(response.status_code, 200)
         if response.status_code == 200:
             print("The requested ID has been succesfully deleted.")
