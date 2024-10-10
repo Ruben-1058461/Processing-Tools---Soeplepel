@@ -26,6 +26,26 @@ class TestItemTypesAPI(unittest.TestCase):
         if response.status_code == 200:
             print(f"The requested ID has been succesfully retrieved. {response_data}")
 
-    
+    def test_put_item_type(self):
+        # Define the POST request data
+        data = {
+            "id": 100,
+            "name": "Testing item_types",
+            "description": "intregation test",
+            "created_at": "2007-12-31 10:48:06",
+            "updated_at": "2023-08-22 06:43:47"
+        }
+
+        # Define the item line ID to update
+        item_line_id = 100  # input("Choose an ID ")
+
+        # Send the PUT request to retrieve the item line by ID
+        response = requests.put(f'{self.base_url}/{item_line_id}', headers=self.headers, json=data)
+
+        # Assert the response status code (200 or 201 depending on your API)
+        self.assertEqual(response.status_code, 200)
+        if response.status_code == 200:
+            print(f"The requested ID has been succesfully updated. {data}")
+        
 if __name__ == '__main__':
     unittest.main()
