@@ -16,7 +16,7 @@ class TestItemLineAPI(unittest.TestCase):
 
     def test_get_item_lines_by_id(self):
         # Define the item line ID to retrieve
-        item_line_id = 97  # input("Choose an ID ")
+        item_line_id = 1
 
         # Send the GET request to retrieve the item line by ID
         response = requests.get(
@@ -24,6 +24,34 @@ class TestItemLineAPI(unittest.TestCase):
 
         # Assert the response status code (200 for successful retrieval)
         self.assertEqual(response.status_code, 200)
+        if response.status_code == 200:
+            print(
+                "The requested ID has been successfully retrieved.")
+        else:
+            print("The requested ID has not been retrieved.")
+
+    def test_compare_item_lines_with_data(self):
+        # Define the item line ID to retrieve
+        item_line_id = 1  # input("Choose an ID ")
+
+        data = {
+        "id": 1,
+        "name": "Home Appliances",
+        "description": "",
+        "created_at": "1979-01-16 07:07:50",
+        "updated_at": "2024-01-05 23:53:25"
+        }
+
+        # Send the GET request to retrieve the item line by ID
+        response = requests.get(
+            f'{self.base_url}/{item_line_id}', headers=self.headers)
+        
+        response_data = response.json
+
+        # Assert the response status code (200 for successful retrieval)
+        self.assertEqual(response.status_code, 200)
+        # compare response with existing data
+        self.assertEqual(response_data, data)
         if response.status_code == 200:
             print(
                 "The requested ID has been successfully retrieved.")
