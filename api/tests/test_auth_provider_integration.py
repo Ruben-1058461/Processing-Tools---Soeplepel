@@ -6,6 +6,7 @@ from providers.auth_provider import init, get_user, has_access
 def setup_auth_provider():
     """Initialiseer authprovider met gebruikergegevens."""
     init()
+    
 
 def test_get_user_valid_api_key():
     """"Test dat een geldige api-key de juiste gebruiker terugstuurd."""
@@ -13,10 +14,12 @@ def test_get_user_valid_api_key():
     assert user is not None # Ik verwacht dat het een gebruiker teruggeefd  
     assert user["app"] == "Cargohub Dashboard 1" # Controleer dat het de juiste gebruiker is opgehaald
 
+
 def test_get_user_invalid_api_key():
     """Test dat een ongeldige api-key geen gebruiker terugstuurd."""
     user = get_user("invalid_api_key")
     assert user is None # We verwachten dat geen gebruiker word teruggegeven
+
 
 def test_get_user_limited_acces():
     """Test een gebruiker met beperkte toegang tot specifieke endpoints en methoden."""
@@ -33,6 +36,8 @@ def test_get_user_limited_acces():
     # Test toegang tot items alleen get zou toegankelijk moeten zijn
     assert has_access(user, "items", "get") == True
     assert has_access(user, "items", "post") == False
+
+
 
 def test_no_acces_for_invalid_method():
     """Test dat een ongeldige methode geen toegang geeft"""
