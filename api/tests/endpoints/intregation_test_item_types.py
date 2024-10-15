@@ -30,6 +30,33 @@ class TestItemTypesAPI(unittest.TestCase):
         else:
             print("The requested ID has not been retrieved.")
 
+    def test_compare_item_types_with_data(self):
+        # Define the item types ID to retrieve
+        item_type_id = 1 
+
+        data = {
+        "id": 1,
+        "name": "Desktop",
+        "description": "",
+        "created_at": "1993-07-28 13:43:32",
+        "updated_at": "2022-05-12 08:54:35"
+        }
+
+        # Send the GET request to retrieve the item Type by ID
+        response = requests.get(
+            f'{self.base_url}/{item_type_id}', headers=self.headers)
+        response_data = response.json
+
+        # Assert the response status code (200 for successful retrieval)
+        self.assertEqual(response.status_code, 200)
+        # Compare response with data
+        self.assertEqual(response_data, data)
+        if response.status_code == 200:
+            print(
+                "The requested ID has been successfully retrieved.")
+        else:
+            print("The requested ID has not been retrieved.")
+
     def test_put_item_types(self):
         # Define the POST request data
         data = {
@@ -75,6 +102,7 @@ class TestItemTypesAPI(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
+    suite.addTest(TestItemTypesAPI('test_get_item_types_by_id'))
     suite.addTest(TestItemTypesAPI('test_get_item_types_by_id'))
     suite.addTest(TestItemTypesAPI('test_put_item_types'))
     suite.addTest(TestItemTypesAPI('test_delete_item_types'))
