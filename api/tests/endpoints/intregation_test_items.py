@@ -147,6 +147,17 @@ class TestItemsAPI(unittest.TestCase):
             print("The requested ID has been succesfully deleted.")
 
 
-        
+# Create a test suite to control the order of test execution
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(TestItemsAPI('test_get_item_item_by_id'))
+    suite.addTest(TestItemsAPI('test_compare_get_item_with_data'))
+    suite.addTest(TestItemsAPI('test_post_item_item'))
+    suite.addTest(TestItemsAPI('test_put_item_item'))
+    suite.addTest(TestItemsAPI('test_delete_item_item'))
+    return suite
+
+
 if __name__ == '__main__':
-    unittest.main()
+    runner = unittest.TextTestRunner()
+    runner.run(suite())
