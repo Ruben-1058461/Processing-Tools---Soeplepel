@@ -16,7 +16,7 @@ class TestItemGroupAPI(unittest.TestCase):
 
     def test_get_item_group_by_id(self):
         # Define the item group ID to retrieve
-        item_group_id = 100  # input("Choose an ID ")
+        item_group_id = 1
 
         # Send the GET request to retrieve the item group by ID
         response = requests.get(
@@ -24,6 +24,35 @@ class TestItemGroupAPI(unittest.TestCase):
 
         # Assert the response status code (200 for successful retrieval)
         self.assertEqual(response.status_code, 200)
+        if response.status_code == 200:
+            print(
+                "The requested ID has been successfully retrieved.")
+        else:
+            print("The requested ID has not been retrieved.")
+
+    def test_compare_item_group_with_data(self):
+        # Define the item group ID to retrieve
+        item_group_id = 1
+
+        data = {
+        "id": 1,
+        "name": "Furniture",
+        "description": "",
+        "created_at": "2019-09-22 15:51:07",
+        "updated_at": "2022-05-18 13:49:28"
+        }
+
+        # Send the GET request to retrieve the item group by ID
+        response = requests.get(
+            f'{self.base_url}/{item_group_id}', headers=self.headers)
+
+        response_data = response.json
+
+        # Assert the response status code (200 for successful retrieval)
+        self.assertEqual(response.status_code, 200)
+        # Compare response with existing data
+        self.assertEqual(response_data, data)
+
         if response.status_code == 200:
             print(
                 "The requested ID has been successfully retrieved.")
@@ -74,6 +103,7 @@ class TestItemGroupAPI(unittest.TestCase):
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestItemGroupAPI('test_get_item_group_by_id'))
+    suite.addTest(TestItemGroupAPI('test_compare_item_group_with_data'))
     suite.addTest(TestItemGroupAPI('test_put_item_group'))
     suite.addTest(TestItemGroupAPI('test_delete_item_group'))
     return suite
