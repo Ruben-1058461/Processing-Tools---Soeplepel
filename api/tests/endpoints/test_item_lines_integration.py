@@ -1,10 +1,21 @@
 import pytest
 import requests
-from test_setup import api_setup
 
-api_setup()
+
+@pytest.fixture
+def api_setup():
+    base_url = 'http://localhost:3000/api/v1/item_lines'
+    headers = {
+        'Accept': '*/*',
+        'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+        'API_KEY': 'a1b2c3d4e5',
+        'Content-Type': 'application/json'
+    }
+    return base_url, headers
 
 # Test: Get item lines by ID
+
+
 def test_get_item_lines_by_id(api_setup):
     base_url, headers = api_setup
     item_line_id = 1
@@ -17,6 +28,8 @@ def test_get_item_lines_by_id(api_setup):
         print("The requested ID has not been retrieved.")
 
 # Test: Compare item lines with data
+
+
 def test_compare_item_lines_with_data(api_setup):
     base_url, headers = api_setup
     item_line_id = 1
@@ -29,7 +42,7 @@ def test_compare_item_lines_with_data(api_setup):
     }
 
     response = requests.get(f'{base_url}/{item_line_id}', headers=headers)
-    
+
     assert response.status_code == 200
     assert response.json() == expected_data  # Fixed response.json call
 
@@ -51,7 +64,8 @@ def test_put_item_line(api_setup):
     }
     item_line_id = 97
 
-    response = requests.put(f'{base_url}/{item_line_id}', headers=headers, json=data)
+    response = requests.put(
+        f'{base_url}/{item_line_id}', headers=headers, json=data)
 
     assert response.status_code == 200
     if response.status_code == 200:
@@ -72,4 +86,3 @@ def test_delete_item_line(api_setup):
         print("The requested ID has been successfully deleted.")
     else:
         print("The requested ID has not been deleted.")
-
