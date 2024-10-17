@@ -1,14 +1,24 @@
-import unittest
+import pytest
 import requests
-from test_setup import api_setup
 
-api_setup()
-    
+
+@pytest.fixture
+def api_setup():
+    base_url = 'http://localhost:3000/api/v1/item_lines'
+    headers = {
+        'Accept': '*/*',
+        'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+        'API_KEY': 'a1b2c3d4e5',
+        'Content-Type': 'application/json'
+    }
+    return base_url, headers
+
+
 def test_get_item_by_id(api_setup):
     base_url, headers = api_setup
     # Define the item item ID to retrieve
     item_id = 'P000001'
-        
+
     # Send the GET request to retrieve the item item by ID
     response = requests.get(f'{base_url}/{item_id}', headers=headers)
 
@@ -22,9 +32,9 @@ def test_get_item_by_id(api_setup):
 def test_compare_get_item_with_data(api_setup):
     base_url, headers = api_setup
     # Define the item item ID to retrieve
-    item_id = 'P000001' # input("Choose an ID ")
+    item_id = 'P000001'  # input("Choose an ID ")
 
-    data =     {
+    data = {
         "uid": "P000001",
         "code": "sjQ23408K",
         "description": "Face-to-face clear-thinking complexity",
@@ -43,8 +53,8 @@ def test_compare_get_item_with_data(api_setup):
         "supplier_part_number": "E-86805-uTM",
         "created_at": "2015-02-19 16:08:24",
         "updated_at": "2015-09-26 06:37:56"
-    }             
-        
+    }
+
     # Send the GET request to retrieve the item item by ID
     response = requests.get(f'{base_url}/{item_id}', headers=headers)
     response_data = response.json()
@@ -56,13 +66,13 @@ def test_compare_get_item_with_data(api_setup):
 
     if response.status_code == 200:
         print(f"The requested ID matches the existing data.")
-             
+
 
 def test_post_item_item(api_setup):
     base_url, headers = api_setup
 
-        # Define the POST request data
-    data =     {
+    # Define the POST request data
+    data = {
         "uid": "P011721",
         "code": "Testing123",
         "description": "Testing items",
@@ -87,18 +97,20 @@ def test_post_item_item(api_setup):
     item_id = 'P011721'  # input("Choose an ID ")
 
     # Send the PUT request to retrieve the item item by ID
-    response = requests.post(f'{base_url}/{item_id}', headers=headers, json=data)
+    response = requests.post(
+        f'{base_url}/{item_id}', headers=headers, json=data)
 
     # Assert the response status code
     assert response.status_code == 200
     if response.status_code == 200:
         print(f"The requested ID has been succesfully posted.")
 
+
 def test_put_item_item(api_setup):
     base_url, headers = api_setup
-        
+
     # Define the PUT request data
-    data =     {
+    data = {
         "uid": "P011721",
         "code": "Testing",
         "description": "Testing",
@@ -123,12 +135,14 @@ def test_put_item_item(api_setup):
     item_id = 'P011721'  # input("Choose an ID ")
 
     # Send the PUT request to retrieve the item item by ID
-    response = requests.put(f'{base_url}/{item_id}', headers=headers, json=data)
+    response = requests.put(f'{base_url}/{item_id}',
+                            headers=headers, json=data)
 
     # Assert the response status code
     assert response.status_code == 200
     if response.status_code == 201:
         print(f"The requested ID has been succesfully updated. {data}")
+
 
 def test_delete_items(api_setup):
     base_url, headers = api_setup
