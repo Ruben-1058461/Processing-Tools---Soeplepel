@@ -4,7 +4,7 @@ import requests
 
 @pytest.fixture
 def api_setup():
-    base_url = 'http://localhost:3000/api/v1/item_lines'
+    base_url = 'http://localhost:3000/api/v1/items'
     headers = {
         'Accept': '*/*',
         'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
