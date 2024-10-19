@@ -13,27 +13,18 @@ def api_setup():
     }
     return base_url, headers
 
-# Test: Get item lines by ID
-
-
 def test_get_item_lines_by_id(api_setup):
     base_url, headers = api_setup
     item_line_id = 1
     response = requests.get(f'{base_url}/{item_line_id}', headers=headers)
 
     assert response.status_code == 200
-    if response.status_code == 200:
-        print("The requested ID has been successfully retrieved.")
-    else:
-        print("The requested ID has not been retrieved.")
 
 # Test: Compare item lines with data
-
-
 def test_compare_item_lines_with_data(api_setup):
     base_url, headers = api_setup
     item_line_id = 1
-    expected_data = {
+    data = {
         "id": 1,
         "name": "Home Appliances",
         "description": "",
@@ -44,12 +35,7 @@ def test_compare_item_lines_with_data(api_setup):
     response = requests.get(f'{base_url}/{item_line_id}', headers=headers)
 
     assert response.status_code == 200
-    assert response.json() == expected_data  # Fixed response.json call
-
-    if response.status_code == 200:
-        print("The requested ID has been successfully retrieved.")
-    else:
-        print("The requested ID has not been retrieved.")
+    assert response.json() == data
 
 
 # Test: Update (PUT) item line
@@ -68,11 +54,6 @@ def test_put_item_line(api_setup):
         f'{base_url}/{item_line_id}', headers=headers, json=data)
 
     assert response.status_code == 200
-    if response.status_code == 200:
-        print("The requested ID has been successfully updated.")
-    else:
-        print("The requested ID has not been updated.")
-
 
 # Test: Delete item line
 def test_delete_item_line(api_setup):
@@ -82,7 +63,3 @@ def test_delete_item_line(api_setup):
     response = requests.delete(f'{base_url}/{item_line_id}', headers=headers)
 
     assert response.status_code == 200
-    if response.status_code == 200:
-        print("The requested ID has been successfully deleted.")
-    else:
-        print("The requested ID has not been deleted.")

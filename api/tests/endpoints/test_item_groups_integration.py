@@ -24,13 +24,8 @@ def test_get_item_group_by_id(api_setup):
     response = requests.get(
         f'{base_url}/{item_group_id}', headers=headers)
 
-    # Assert the response status code (200 for successful retrieval)
+    # Assert the response status code
     assert response.status_code == 200
-    if response.status_code == 200:
-        print(
-            "The requested ID has been successfully retrieved.")
-    else:
-        print("The requested ID has not been retrieved.")
 
 
 def test_compare_item_group_with_data(api_setup):
@@ -50,18 +45,10 @@ def test_compare_item_group_with_data(api_setup):
     response = requests.get(
         f'{base_url}/{item_group_id}', headers=headers)
 
-    response_data = response.json
-
-    # Assert the response status code (200 for successful retrieval)
+    # Assert the response status code
     assert response.status_code == 200
     # Compare response with existing data
-    assert response_data == data
-
-    if response.status_code == 200:
-        print(
-            "The requested ID has been successfully retrieved.")
-    else:
-        print("The requested ID has not been retrieved.")
+    assert response.json() == data
 
 
 def test_put_item_group(api_setup):
@@ -85,10 +72,6 @@ def test_put_item_group(api_setup):
 
     # Assert the response status code
     assert response.status_code == 200
-    if response.status_code == 200:
-        print("The requested ID has been successfully updated.")
-    else:
-        print("The requested ID has not been updated.")
 
 
 def test_delete_item_group(api_setup):
@@ -103,7 +86,3 @@ def test_delete_item_group(api_setup):
 
     # Assert the response status code
     assert response.status_code == 200
-    if response.status_code == 200:
-        print("The requested ID has been successfully deleted.")
-    else:
-        print("The requested ID has not been deleted.")
