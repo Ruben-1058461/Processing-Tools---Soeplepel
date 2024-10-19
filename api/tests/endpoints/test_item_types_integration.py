@@ -14,11 +14,11 @@ def api_setup():
     return base_url, headers
 
 
-def test_get_item_types_by_id(self):
+def test_get_item_types_by_id(api_setup):
     base_url, headers = api_setup
 
     # Define the item types ID to retrieve
-    item_type_id = 100
+    item_type_id = 1
 
     # Send the GET request to retrieve the item Type by ID
     response = requests.get(
@@ -26,6 +26,7 @@ def test_get_item_types_by_id(self):
 
     # Assert the response status code
     assert response.status_code == 200
+
 
 def test_compare_item_types_with_data(api_setup):
     base_url, headers = api_setup
@@ -44,12 +45,11 @@ def test_compare_item_types_with_data(api_setup):
     # Send the GET request to retrieve the item Type by ID
     response = requests.get(
         f'{base_url}/{item_type_id}', headers=headers)
-    response_data = response.json
 
     # Assert the response status code
     assert response.status_code == 200
     # Compare response with data
-    assert response_data == data
+    assert response.json() == data
 
 
 def test_put_item_types(api_setup):

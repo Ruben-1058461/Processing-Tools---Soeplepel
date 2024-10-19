@@ -45,12 +45,10 @@ def test_compare_item_group_with_data(api_setup):
     response = requests.get(
         f'{base_url}/{item_group_id}', headers=headers)
 
-    response_data = response.json
-
     # Assert the response status code
     assert response.status_code == 200
     # Compare response with existing data
-    assert response_data == data
+    assert response.json() == data
 
 
 def test_put_item_group(api_setup):
