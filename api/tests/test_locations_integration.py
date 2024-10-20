@@ -84,3 +84,23 @@ def test_remove_location_integration(locations):
     result = locations.get_location(1)
 
     assert result is None # Check of het gelukt is
+
+
+def test_get_locations_in_warehouse(locations):
+    """Integratietest voor het ophalen van locaties in een magazijn"""
+    # Voeg meerdere locaties toe aan hetzelfde magazijn
+    location1 = {"id": 1, "warehouse_id": 101, "name": "Location 1"}
+    location2 = {"id": 2, "warehouse_id": 101, "name": "Location 2"}
+    location3 = {"id": 3, "warehouse_id": 102, "name": "Location 3"}
+    
+    locations.add_location(location1)
+    locations.add_location(location2)
+    locations.add_location(location3)
+
+    # Haal locaties op voor warehouse_id 101
+    results = locations.get_locations_in_warehouse(101)
+
+
+    assert len(results) == 2  # Er moeten 2 locaties zijn in warehouse_id 101
+    assert results[0]["name"] in ["Location 1", "Location 2"]  # Controleer namen
+    assert results[1]["name"] in ["Location 1", "Location 2"]  # Controleer namen
