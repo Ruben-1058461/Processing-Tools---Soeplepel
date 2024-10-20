@@ -30,3 +30,10 @@ def test_add_and_get_location_integration(locations):
     assert result is not None # Locatie moet bestaan
     assert result["name"] == "Location 1"
 
+
+def test_not_existing_location(locations):
+    """Integratietest voor het ophalen van niet bestaande locatie."""
+    # Haal locatie op die niet bestaat
+    result = locations.get_location(123456) # Fake id
+
+    assert result is None # Dit moet uitkomen op None
