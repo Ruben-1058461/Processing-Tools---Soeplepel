@@ -37,3 +37,22 @@ def test_get_location(locations):
 
     # Check of naam overeenkomt met die toegevoegd is
     assert result["name"] == "Location 1"
+
+def test_delete_location(locations):
+    """Test het verwijderen van een locatie"""
+    location = {
+        "id": 1,
+        "warehouse_id": 101,
+        "name": "Location 1"
+    }
+    # Voeg locatie toe aan de locations
+    locations.add_location(location)
+
+    # Verwijder op basis van id (1)
+    locations.remove_location(1)
+
+    # Probeer opnieuw op te halen om checken of verwijdert
+    result = locations.get_location(1) # We verwachten none want hij is verwijdert
+
+    # Controleer of die verwijderd is
+    assert result is None
