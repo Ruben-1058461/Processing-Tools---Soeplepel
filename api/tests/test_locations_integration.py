@@ -65,3 +65,22 @@ def test_updating_location_integration(locations):
     assert result is not None  # De locatie moet bestaan
     assert result["warehouse_id"] == 102  # De naam moet zijn bijgewerkt
     assert result["name"] == "Updated location 1"  # De naam moet zijn bijgewerkt
+
+def test_remove_location_integration(locations):
+    """Integratietest voor verwijderen locatie"""
+    location = {
+        "id": 1,
+        "warehouse_id": 101,
+        "name": "Location 1"
+    }
+
+    # Voeg locatie toe
+    locations.add_location(location)
+
+    # Verwijder locatie
+    locations.remove_location(1)
+
+    # Check of die verwijdert is
+    result = locations.get_location(1)
+
+    assert result is None # Check of het gelukt is
