@@ -19,3 +19,21 @@ def test_add_location(locations):
     assert len(locations.data) == 1
     # 2 Controlleer of de toegevoegde locatie de juiste naam heeft
     assert locations.data[0]["name"] == "Location 1"
+
+def test_get_location(locations):
+    """Test voor het ophalen van locatie op ID"""
+    location = {
+        "id": 1, # ID voor testlocatie
+        "warehouse_id": 102, # Warehouse id 
+        "name": "Location 1" # Naam locatie 
+    }
+    locations.add_location(location)  # Testlocatie
+
+    # Ophalen van de locatie met ID
+    result = locations.get_location(1)
+
+    # Check of er een resultaat is
+    assert result is not None
+
+    # Check of naam overeenkomt met die toegevoegd is
+    assert result["name"] == "Location 1"
