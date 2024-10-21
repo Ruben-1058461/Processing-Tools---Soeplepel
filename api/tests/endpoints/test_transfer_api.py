@@ -151,7 +151,20 @@ def test_postnoitems(url):
     status_code = post_response.status_code
     assert status_code == 201
 
+def test_delete_transferbyid(url):
+    transfer_id = 12999999
+    testurl = url + f'transfers/{transfer_id}'
 
+    headers = {
+        'api_key': 'a1b2c3d4e5', 
+        'Accept': '*/*',
+        'Content-Type': 'application/json'
+    }
+
+    del_response = requests.delete(testurl, headers=headers)
+
+    print(f"Status Code: {del_response.status_code}")
+    assert del_response.status_code == 200
 
 
 
