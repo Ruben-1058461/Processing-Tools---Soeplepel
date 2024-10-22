@@ -3,21 +3,26 @@ import requests
 
 
 @pytest.fixture 
-def url():
-    return 'http://localhost:3000/api/v1/'
+def setup():
+    url = 'http://localhost:3000/api/v1/'
 
-
-
-
-def test_post_shipment(url):
-    shipment_id = 123456789
-    testurl = url + f'shipments/{shipment_id}'
 
     headers = {
         'api_key': 'a1b2c3d4e5',
         'Accept': '*/*',
         'Content-Type': 'application/json'
     }
+
+    return url, headers
+
+
+
+
+def test_post_shipment(setup):
+    url ,headers = setup 
+    shipment_id = 123456789
+    testurl = url + f'shipments/{shipment_id}'
+
 
     data = {
         "id": shipment_id,
@@ -48,31 +53,17 @@ def test_post_shipment(url):
 
     post_response = requests.post(testurl, headers=headers, json=data)
 
-    print(f"Status Code: {post_response.status_code}")
-    print(f"Response Content: {post_response.content}")
-    print(f"Request URL: {post_response.url}")
-
     status_code = post_response.status_code
     assert status_code == 201
 
 
 
-def test_get_shipment(url): 
+def test_get_shipment(setup):     
+    url, headers = setup 
     shipment_id = 123456789
     testurl = url + f'shipments/{shipment_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
-
     get_response = requests.get(testurl, headers=headers)
-
-    
-    print(f"Status Code: {get_response.status_code}")
-    print(f"Response Content: {get_response.content}")
-    print(f"Request URL: {get_response.url}")
 
     status_code = get_response.status_code
 
@@ -80,15 +71,11 @@ def test_get_shipment(url):
 
 
 
-def test_update_shipment(url):
+def test_update_shipment(setup):
+    url, headers = setup
     shipment_id = 123456789
     testurl = url + f'shipments/{shipment_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
 
     data = {
         "id": 3,
@@ -121,36 +108,27 @@ def test_update_shipment(url):
    
     up_response = requests.put(testurl, headers=headers, json=data)
 
-    print(f"Status Code: {up_response.status_code}")
     assert up_response.status_code == 200
 
  
-def test_delete_shipment(url):
+def test_delete_shipment(setup):
+    url, headers = setup
     shipment_id = 123456789
     testurl = url + f'shipments/{shipment_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
+
 
     del_response = requests.delete(testurl, headers=headers)
 
-    print(f"Status Code: {del_response.status_code}")
     assert del_response.status_code == 200
  
 
     
-def test_postnoitems(url): 
+def test_postnoitems(setup): 
+    url, headers = setup
     shipments_id =  12999999   	
     testurl = url + f'shipments/{shipments_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
 
     data = {
 
@@ -178,27 +156,20 @@ def test_postnoitems(url):
 
     post_response = requests.post(testurl,headers=headers, json=data)
 
-    print(f"Status Code: {post_response.status_code}")
-    print(f"Response Content: {post_response.content}")
-    print(f"Request URL: {post_response.url}")
     
     status_code = post_response.status_code
     assert status_code == 201
 
 
-def test_delete_shipmentbyid(url):
+def test_delete_shipmentbyid(setup):
+    url, headers = setup
     shipment_id = 12999999
     testurl = url + f'shipments/{shipment_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
+
 
     del_response = requests.delete(testurl, headers=headers)
 
-    print(f"Status Code: {del_response.status_code}")
     assert del_response.status_code == 200
 
 
