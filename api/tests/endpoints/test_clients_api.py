@@ -52,12 +52,6 @@ def test_get_client(setup):
     client_id = 15
     testurl = url + f'clients/{client_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
-
     get_response = requests.get(testurl, headers=headers)
 
     
@@ -76,11 +70,6 @@ def test_update_client(setup):
     client_id = 123456789
     testurl = url + f'clients/{client_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
 
     data = {
         "id": client_id,
