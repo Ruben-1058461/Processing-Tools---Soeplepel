@@ -36,12 +36,7 @@ def test_post_client(setup):
     }
  
 
-
     post_response = requests.post(testurl, headers=headers, json=data)
-
-    print(f"Status Code: {post_response.status_code}")
-    print(f"Response Content: {post_response.content}")
-    print(f"Request URL: {post_response.url}")
 
     status_code = post_response.status_code
     assert status_code == 201
@@ -54,10 +49,6 @@ def test_get_client(setup):
 
     get_response = requests.get(testurl, headers=headers)
 
-    
-    print(f"Status Code: {get_response.status_code}")
-    print(f"Response Content: {get_response.content}")
-    print(f"Request URL: {get_response.url}")
 
     status_code = get_response.status_code
 
@@ -89,7 +80,6 @@ def test_update_client(setup):
    
     up_response = requests.put(testurl, headers=headers, json=data)
 
-    print(f"Status Code: {up_response.status_code}")
     assert up_response.status_code == 200
 
  
@@ -101,7 +91,6 @@ def test_delete_client(setup):
 
     del_response = requests.delete(testurl, headers=headers)
 
-    print(f"Status Code: {del_response.status_code}")
     assert del_response.status_code == 200
  
 
