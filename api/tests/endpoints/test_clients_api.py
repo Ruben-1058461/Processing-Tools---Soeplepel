@@ -3,20 +3,22 @@ import pytest
 
 
 @pytest.fixture 
-def url():
-    return 'http://localhost:3000/api/v1/'
-
-
-
-def test_post_client(url):
-    client_id = 123456789
-    testurl = url + f'clients/{client_id}'
-
+def setup():
+    url = 'http://localhost:3000/api/v1/'
     headers = {
-        'api_key': 'a1b2c3d4e5',
+        'api_key': 'a1b2c3d4e5', 
         'Accept': '*/*',
         'Content-Type': 'application/json'
     }
+    return url, headers
+
+
+
+def test_post_client(setup):
+    url, headers = setup
+    client_id = 123456789
+    testurl = url + f'clients/{client_id}'
+     
 
     data = {
         "id": client_id,
@@ -45,11 +47,8 @@ def test_post_client(url):
     assert status_code == 201
 
 
-
-  
-
-
-def test_get_client(url): 
+def test_get_client(setup): 
+    url, headers = setup 
     client_id = 15
     testurl = url + f'clients/{client_id}'
 
@@ -72,7 +71,8 @@ def test_get_client(url):
 
 
 
-def test_update_client(url):
+def test_update_client(setup):
+    url, headers = setup 
     client_id = 123456789
     testurl = url + f'clients/{client_id}'
 
@@ -104,15 +104,11 @@ def test_update_client(url):
     assert up_response.status_code == 200
 
  
-def test_delete_client(url):
+def test_delete_client(setup):
+    url, headers = setup
     client_id = 123456789
     testurl = url + f'clients/{client_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
 
     del_response = requests.delete(testurl, headers=headers)
 
