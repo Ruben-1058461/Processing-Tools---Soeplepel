@@ -3,20 +3,26 @@ import requests
 
 
 @pytest.fixture 
-def url():
-    return 'http://localhost:3000/api/v1/'
-
-
-
-def test_post_warehouse(url):
-    warehouse_id = 123456789
-    testurl = url + f'warehouses/{warehouse_id}'
+def setup():
+    url = 'http://localhost:3000/api/v1/'
 
     headers = {
         'api_key': 'a1b2c3d4e5',
         'Accept': '*/*',
         'Content-Type': 'application/json'
     }
+
+    return url, headers 
+
+
+
+
+
+def test_post_warehouse(setup):
+    url, headers = setup
+    warehouse_id = 123456789
+    testurl = url + f'warehouses/{warehouse_id}'
+
 
     data =     {
         "id": warehouse_id,
@@ -43,15 +49,12 @@ def test_post_warehouse(url):
 
 
 
-def test_get_warehouse(url): 
+def test_get_warehouse(setup): 
+    url, headers = setup 
     warehouse_id = 123456789
     testurl = url + f'warehouses/{warehouse_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
+    
 
     get_response = requests.get(testurl, headers=headers)
 
@@ -63,15 +66,12 @@ def test_get_warehouse(url):
 
 
 
-def test_update_locations(url):
+def test_update_locations(setup):
+    url, headers = setup 
     warehouse_id = 123456789
     testurl = url + f'warehouses/{warehouse_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
+   
 
     data =  {
         "id": warehouse_id,
@@ -97,15 +97,12 @@ def test_update_locations(url):
     assert up_response.status_code == 200
 
 
-def test_delete_warehouse(url):
+def test_delete_warehouse(setup):
+    url, headers = setup 
     warehouse_id = 123456789
     testurl = url + f'warehouses/{warehouse_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
+  
 
     del_response = requests.delete(testurl, headers=headers)
 
@@ -113,15 +110,12 @@ def test_delete_warehouse(url):
 
 
 
-def test_post_with_no_warehousecontact(url): 
+def test_post_with_no_warehousecontact(setup): 
+    url, headers = setup
     warehouse_id =  12999999   	
     testurl = url + f'warehouses/{warehouse_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
+    
 
     data = {
         "id": warehouse_id,
@@ -143,15 +137,12 @@ def test_post_with_no_warehousecontact(url):
     status_code = post_response.status_code
     assert status_code == 201
 
-def test_delete_warehouse_by_id(url):
+def test_delete_warehouse_by_id(setup):
+    url, headers = setup 
     warehouse_id = 12999999
     testurl = url + f'warehouses/{warehouse_id}'
 
-    headers = {
-        'api_key': 'a1b2c3d4e5', 
-        'Accept': '*/*',
-        'Content-Type': 'application/json'
-    }
+   
 
     del_response = requests.delete(testurl, headers=headers)
 
